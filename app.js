@@ -1,16 +1,21 @@
 const http = require('http');
 const express = require('express');
+const bodyParser = require('body-parser');
+
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
 
 const app = express();
 
-app.use('/add-user',(req, res, next) => {
-    console.log("Welcome to addUserPage");
-    res.send("</h1>Welcome to addUserPage</h1>");
-})
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
-app.use('/',(req, res, next) => {
-    console.log("Welcome to mainPage");
-    res.send("</h1>Welcome to mainPage</h1>");
-})
+app.use('/admin', adminRoutes);
+app.use(shopRoutes);
 
-app.listen(3000);
+app.use((req, res, next) => {
+    res.status(404).send("<h3>404 Page not found</>")
+});
+
+app.listen(8080, '0.0.0.0');
