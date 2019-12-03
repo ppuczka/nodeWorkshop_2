@@ -1,22 +1,25 @@
 const express = require('express');
 
+const path = require('path');
+const rootDir = require('../utils/path');
+
 const router = express.Router();
 
-const userList = [];
+
+const productList = [];
 
 router.use('/add-product',(req, res, next) => {
-    console.log("Welcome to add product page");
-    res.send('<body><form action="/admin/product" method="POST"><input type="text" name="product"><button type="submit">Send</button></form></body>');
+    res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
 })
 
 router.post("/product", (req, res) => {
     console.log(req.body);
-    userList.push(req.body);
+    productList.push(req.body);
     res.redirect("/");
 })
 
 router.get("/product", (req, res) => {
-    userList.forEach(u => console.log(u))
+    productList.forEach(u => console.log(u))
     res.send('<h1>Product Page</h1>');
 })
 
