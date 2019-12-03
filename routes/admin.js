@@ -8,17 +8,18 @@ const router = express.Router();
 
 const productList = [];
 
-router.use('/add-product',(req, res, next) => {
+router.get('/add-product',(req, res, next) => {
     res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
 })
 
-router.post("/product", (req, res) => {
+router.post("/add-product", (req, res) => {
     console.log(req.body);
     productList.push(req.body);
     res.redirect("/");
 })
 
 router.get("/product", (req, res) => {
+    console.log('Product');
     productList.forEach(u => console.log(u))
     res.send('<h1>Product Page</h1>');
 })
