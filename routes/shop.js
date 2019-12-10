@@ -8,7 +8,6 @@ const router = express.Router();
 
 router.get('/',(req, res, next) => {
     const products = adminData.productList;
-    products.forEach(c => console.log('lista', c));
     res.render('shop', {prods: products, docTitle: 'Shop'});
 });
 
