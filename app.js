@@ -4,8 +4,11 @@ const path = require('path');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
-
 const app = express();
+
+//Controllers imports 
+const errorController = require('./controllers/error')
+
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -21,8 +24,6 @@ app.use('/admin', shopRoutes);
 
 app.use(shopRoutes);
 
-app.use((req, res, next) => {
-    res.status(404).render('404', {title: 'Page not found'});
-});
+app.use(errorController.get404);
 
 app.listen(8080, '0.0.0.0');
